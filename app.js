@@ -1,17 +1,15 @@
-var TwitterPackage = require('twitter');
+var app = function () {
+  var http = require('http');
+  var express = require('express');
+  var app = express();
 
-var secret = {
-  consumer_key: 'PUT YOURS',
-  consumer_secret: 'PUT YOURS',
-  access_token_key: 'PUT YOURS',
-  access_token_secret: 'PUT YOURS'
-}
-var Twitter = new TwitterPackage(secret);
+  app.set('views', __dirname + '/views');
+  app.engine('html', require('ejs').renderFile);
+  app.get('/', function(req, res) {
+    res.render('index.html');
+  });
 
-Twitter.post('statuses/update', {status: 'I Love Coding'},  function(error, tweet, response){
-  if(error){
-    console.log(error);
-  }
-  console.log(tweet);  // Tweet body.
-  console.log(response);  // Raw response object.
-});
+  return app;
+}();
+
+module.exports = app;
